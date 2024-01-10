@@ -1,0 +1,14 @@
+<!-- templates/mapbox_filter_control.html -->
+<div class="mapboxgl-ctrl mapboxgl-ctrl-group">
+    <div class="mapboxgl-filter-list">
+        {% for entry in entries %}
+            <button type="button" class="{{ entry['title']|replace('[^a-z0-9-]','_') }} {% if entry['isActive'] %}active{% endif %}"
+                    data-id="{{ entry['id'] }}" onclick="handleClick(this)">
+                {{ entry['title'] }}
+            </button>
+        {% endfor %}
+    </div>
+    <button type="button" class="mapboxgl-ctrl-icon mapboxgl-filter-switch {% if not active_is_default %}active{% endif %}"
+            onclick="openModal()">
+    </button>
+</div>
