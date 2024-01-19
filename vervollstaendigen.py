@@ -1,6 +1,6 @@
 import folium
 import data_types as dt
-from collect_data import AllStations, TrainConnection, TrainStation
+from archiv.collect_data import AllStations, TrainConnection, TrainStation
 
 stations = AllStations()
 stations.load()

@@ -74,7 +74,7 @@ class Stations:
         self.stations = {}
 
     def add_station(self, station):
-        from collect_data import TrainStation 
+        from archiv.collect_data import TrainStation 
         if type(station) == Station:
             if station.id not in self.stations:
                 self.stations[station.id] = station
