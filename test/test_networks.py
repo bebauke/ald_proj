@@ -42,6 +42,29 @@ def get_test_graph(coords= False):
 
     return g
 
+def test_Graph_init():
+    g = get_test_graph()
+    assert g.get_nodes() == ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+    assert isinstance(g.coords, dict)
+    assert isinstance(g.coords["A"], tuple) 
+    assert g.get_coords("A") == (None, None)
+
+    g = get_test_graph(True)
+    assert g.get_nodes() == ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+    assert isinstance(g.coords, dict)
+    assert isinstance(g.coords["A"], tuple)
+    assert g.get_coords("A") == (0, 0)
+
+    coords = {"A": (0, 0), "B": (1, 0), "C": (2, 0), "D": (1, 1), "E": (1, -1), "F": (2, 1), "G": (2, -1), "H": (3, 1), "I": (3, -1), "J": (4, 1), "K": (4, -1), "L": (5, 0)}
+    mat = g.adjacency_matrix
+    g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"], coords_list=coords)
+    g.adjacency_matrix = mat
+
+    assert g.get_nodes() == ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+    assert isinstance(g.coords, dict)
+    assert isinstance(g.coords["A"], tuple)
+    assert g.get_coords("A") == (0, 0)
+
 def test_Graph():
     g = get_test_graph()
 
@@ -83,17 +106,20 @@ def test_Graph():
     assert g.get_edge("B", "D") == 3
     
 def test_Graph_csv():
-    g = get_test_graph()
+    g = get_test_graph(True)
 
-    if not os.path.exists("test.csv") and not os.path.exists("test_coords.csv"):
-        g.to_csv("test.csv")
-        assert os.path.exists("test.csv")
-        assert os.path.exists("test_coords.csv")
+    if os.path.exists("test.csv") and os.path.exists("test_coords.csv"):
         os.remove("test.csv")
         os.remove("test_coords.csv")
-    else:
-        assert False; "File already exists"
 
+    g.to_csv("test.csv")
+    g2 = Graph.from_csv("test.csv")
+    os.remove("test.csv")
+    os.remove("test_coords.csv")
+
+    assert g.adjacency_matrix.tolist() == g2.adjacency_matrix.tolist()
+    assert g.nodes_dict == g2.nodes_dict
+    assert g.coords == g2.coords
 
 def test_Graph_coords():
     g = get_test_graph(False)
@@ -107,3 +133,17 @@ def test_Graph_coords():
     assert g.get_coords("E") == (1, -1)
     assert g.get_coords("F") == (2, 1)
 
+def test_Graph_get_cost():
+    g = get_test_graph()
+
+    assert g.get_cost(["A", "B"]) == 1
+    assert g.get_cost(["A", "C"]) == 2
+    assert g.get_cost(["A", "B", "D"]) == 4
+
+    # TODO: activate exception in get_cost
+    try: # no route -> expect Exception
+        g.get_cost(["A", "L"])
+    except Exception as e:
+        assert True
+    else:
+        assert False

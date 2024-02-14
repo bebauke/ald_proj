@@ -1,20 +1,78 @@
 <!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Flask App</title>
-    <!-- Include any additional stylesheets or scripts as needed -->
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Flask App</title>
+        
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
-<!-- Your other HTML content goes here -->
+    </head>
+    <body>
 
-{{ mapbox_filter_control.render() | safe }}
+        <!-- Your other HTML content goes here -->
 
-<!-- Include any additional scripts or scripts as needed -->
+        {{ mapbox_filter_control.render() | safe }}
 
-</body>
+        {{ map.render() | safe }}
+
+
+        <!-- Include any additional scripts or scripts as needed -->
+        <script>
+            function search() {
+                // Werte aus den Eingabefeldern abrufen
+                var start = document.getElementById('start').value;
+                var end = document.getElementById('end').value;
+
+                // AJAX-Aufruf an den Flask-Server machen
+                // AJAX-Aufruf an den Flask-Server machen
+                fetch('/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        start: start,
+                        end: end
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(response.status + ' ' + response.statusText + ' ' + response.url);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Ergebnisse im 'results'-Div anzeigen
+                    var resultsDiv = document.getElementById('results');
+                    console.log(data);
+                    var shortest = data.shortest_route;
+                    var stats = data.search_stats;
+
+                    var renderResults = '';
+
+                    renderResults = '<span>' + stats.distance + ' km</span>';
+                    renderResults += '<span>' + stats.duration + ' min</span>';
+                    renderResults += '<span>' + stats.visited_nodes_count + '</span>';
+                    renderResults += '<span>' + stats.execution_time + ' µs</span>';
+                    renderResults += '<br/><b>Kürzester Weg:</b><ul id="result-list">';
+                    for (var i = 0; i < shortest.length; i++) {
+                        renderResults += '<li>' + shortest[i] + '</li>';
+                    }
+                    renderResults += '</ul>';
+
+                    resultsDiv.innerHTML = renderResults;
+
+                    
+                })
+                .catch(error => {
+                    console.error('Es gab ein Problem mit dem Fetch-Aufruf:', error);
+                    // Fehlermeldung im 'results'-Div anzeigen
+                    var resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = 'Fehler bei Aufruf: ' + error;
+                });
+            }
+        </script>
+    </body>
 </html>
-

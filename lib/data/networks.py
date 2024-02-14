@@ -6,8 +6,12 @@ class Graph:
         self.nodes_dict = {}
         if coords_list is not None:
             if isinstance(coords_list, dict):
+                if not isinstance(coords_list[node_list[0]], tuple):
+                    raise Exception("Invalid coordinates format:" + str(coords_list[node_list[0]]))
                 coords = coords_list
             elif isinstance(coords_list, list):
+                if not isinstance(coords_list[0], tuple):
+                    raise Exception("Invalid coordinates format:" + str(coords_list[0]))
                 if len(node_list) != len(coords_list):
                     raise Exception("Number of nodes and coordinates do not match.")
                 coords = {node: coords_list[i] for i, node in enumerate(node_list)}
@@ -108,6 +112,35 @@ class Graph:
         df = pd.DataFrame(self.coords)
         path_csv = path.split(".")[0] + "_coords.csv"
         df.to_csv(path_csv, index=False)
+
+    def from_csv(path, path_coords=None):
+        '''
+        Reads the adjacency matrix from a csv file.
+        '''
+        
+        try:
+            import pandas as pd
+            df = pd.read_csv(path)
+            adjacency_matrix = df.to_numpy()
+        
+            # coords 
+            if path_coords is None:
+                path_coords = path.split(".")[0] + "_coords.csv"
+            df = pd.read_csv(path_coords)
+            coords = df.to_dict()
+            nodes = list(coords.keys())
+
+        except Exception as e:
+            raise Exception("Could not read csv file: ", e)
+        
+        coords_d = {}
+        for node in nodes:
+            coords_d[node] = (coords[node][0], coords[node][1])
+
+        g = Graph(nodes, coords_d)
+        g.adjacency_matrix = adjacency_matrix
+
+        return g
         
 
     def get_nodes(self):
@@ -121,3 +154,28 @@ class Graph:
         Returns the coordinates of a node.
         '''
         return self.coords[node]
+
+    def get_cost(self, route):
+        '''
+        Returns the total cost of a route.
+        '''
+        cost = 0
+        for i in range(len(route)-1):
+            _cost = self.adjacency_matrix[self.nodes_dict[route[i]]][self.nodes_dict[route[i+1]]]
+            if _cost == np.inf:
+                continue
+                raise Exception("Route not possible.")
+            cost += _cost
+        return cost
+    
+    def get_distance(self, route):
+        '''
+        Returns the total distance of a route in km.
+        '''
+        distance = 0
+        for i in range(len(route)-1):
+            c1 = self.coords[route[i]]
+            c2 = self.coords[route[i+1]]
+            distance += np.sqrt((c1[0]-c2[0])**2 + (c1[1]-c2[1])**2)
+        return distance
+        

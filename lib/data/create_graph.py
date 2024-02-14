@@ -36,8 +36,10 @@ df_stations
 lines = df_connections.groupby("train")
 
 import networks as nw
-
-g = nw.Graph(list(df_stations["station"]))
+coords = {}
+for s in df_stations.iterrows():
+    coords[s[1]["station"]] = (s[1]["lat"], s[1]["lon"])
+g = nw.Graph(list(df_stations["station"]),coords)
 
 for line in lines:
     for i in range(len(line[1]["station"])-1):
@@ -54,8 +56,6 @@ for line in lines:
         g.update_edge(line[1]["station"].iloc[i], line[1]["station"].iloc[i+1], duration)
 
 print(g.get_neighbors("Wien Hbf"))
-
-print(pd.DataFrame(g.adjacency_matrix).to_csv("data/adjacency_matrix.csv", index=False))
 
 # create a map with all stations and connections
 
@@ -77,5 +77,5 @@ for i in range(len(g.adjacency_matrix)):
 
 # save map
 m.save("data/map.html")
-# g.to_csv("adjacency_matrix.csv")
+g.to_csv("data/graph.csv")
 

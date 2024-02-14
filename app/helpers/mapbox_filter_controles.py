@@ -1,4 +1,5 @@
 from flask import render_template
+from app.helpers.calc import get_nodes
 
 class MapboxFilterControl:
     def __init__(self, entries, default_entry, on_change):
@@ -17,5 +18,6 @@ class MapboxFilterControl:
             'mapbox_filter_control.html',
             entries=self.entries,
             default_entry=self.default_entry,
-            active_is_default=active_is_default
+            active_is_default=active_is_default,
+            get_nodes=get_nodes,
         )
