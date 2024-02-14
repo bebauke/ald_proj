@@ -14,7 +14,7 @@ class ISearchAlgorithm():
         '''
         self.name = name
 
-    def search(self, graph: Graph, start: str, end: str) -> (list, Graph):
+    def search(self, graph: Graph, start: str, end: str) -> tuple[list[str], Graph]:
         '''
         Searches for the shortest path between two nodes in a graph.
         Returns the shortest path and a Graph, where all visited edges are 1 and the shortest path is 0.

@@ -87,7 +87,9 @@ class Graph:
         Writes the adjacency matrix to a csv file.
         '''
         import pandas as pd
-        pd.DataFrame(self.adjacency_matrix).to_csv(path, index=False)
+        # add column and row names
+        pd.DataFrame(self.adjacency_matrix, columns=list(self.nodes_dict.keys())).to_csv(path, index=False)
+        
 
     def get_nodes(self):
         '''
