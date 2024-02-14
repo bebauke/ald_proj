@@ -88,6 +88,8 @@ div#results span {
 
 iframe {
     border: none; /* Remove the default border */
+    width: 100%;
+    height: 99vh;
 }
 
 /* Responsive adjustments */
