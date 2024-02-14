@@ -5,8 +5,13 @@ import numpy as np
 import folium
 import geopy.distance as gd
 
-df_stations = pd.read_csv("station_coords.csv")
-df_connections = pd.read_csv("train_data.csv")
+# add file directory to path
+# import sys
+# sys.path.append("data")
+
+
+df_stations = pd.read_csv("data/station_coords.csv")
+df_connections = pd.read_csv("data/train_data.csv")
 
 # init new column "connections" in df_stations
 df_stations["connections"] = None
@@ -50,7 +55,7 @@ for line in lines:
 
 print(g.get_neighbors("Wien Hbf"))
 
-print(pd.DataFrame(g.adjacency_matrix).to_csv("adjacency_matrix.csv", index=False))
+print(pd.DataFrame(g.adjacency_matrix).to_csv("data/adjacency_matrix.csv", index=False))
 
 # create a map with all stations and connections
 
@@ -71,7 +76,6 @@ for i in range(len(g.adjacency_matrix)):
             folium.PolyLine([[df_stations["lat"][i], df_stations["lon"][i]], [df_stations["lat"][j], df_stations["lon"][j]]],popup=popup, color="black", weight=4*distance/g.adjacency_matrix[i][j], opacity=1).add_to(m)
 
 # save map
-m.save("map.html")
+m.save("data/map.html")
+# g.to_csv("adjacency_matrix.csv")
 
-
-# %%

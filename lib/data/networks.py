@@ -82,3 +82,15 @@ class Graph:
             ret[stat[i]] = weights[i]
         return ret
     
+    def to_csv(self, path):
+        '''
+        Writes the adjacency matrix to a csv file.
+        '''
+        import pandas as pd
+        pd.DataFrame(self.adjacency_matrix).to_csv(path, index=False)
+
+    def get_nodes(self):
+        '''
+        Returns a list of all nodes in the graph.
+        '''
+        return list(self.nodes_dict.keys())
