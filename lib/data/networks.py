@@ -1,15 +1,27 @@
 import numpy as np
 
 class Graph:
-    def __init__(self, node_list, coords=None):
+    def __init__(self, node_list, coords_list=None):
         ## TODO: Add coordinates to nodes
         self.nodes_dict = {}
+        if coords_list is not None:
+            if isinstance(coords_list, dict):
+                coords = coords_list
+            elif isinstance(coords_list, list):
+                if len(node_list) != len(coords_list):
+                    raise Exception("Number of nodes and coordinates do not match.")
+                coords = {node: coords_list[i] for i, node in enumerate(node_list)}
+            else:
+                raise Exception("Invalid coordinates format.")
+        else:
+            coords = {node: (None, None) for node in node_list}
+
         for node in node_list:
             self.nodes_dict[node] = node_list.index(node)
 
         # 2D array of distances between nodes
         self.adjacency_matrix = np.full((len(node_list), len(node_list)), np.inf)
-        self.coords = np.full((len(node_list), 2), np.inf)
+        self.coords = coords
 
         # self.adjacency_matrix = {}
         # for node in node_list:
@@ -73,7 +85,7 @@ class Graph:
 
     def get_neighbors(self, node):
         '''
-        Returns a list of all neighbors and costs of a node.
+        Returns a dictionary of all neighbors of a node and their weights.
         '''
         node = self._to_index(node)
         neighbors = np.where(self.adjacency_matrix[node] != np.inf)[0]
@@ -89,8 +101,13 @@ class Graph:
         Writes the adjacency matrix to a csv file.
         '''
         import pandas as pd
-        # add column and row names
-        pd.DataFrame(self.adjacency_matrix, columns=list(self.nodes_dict.keys())).to_csv(path, index=False)
+        df = pd.DataFrame(self.adjacency_matrix)
+        df.to_csv(path, index=False)
+
+        # coords 
+        df = pd.DataFrame(self.coords)
+        path_csv = path.split(".")[0] + "_coords.csv"
+        df.to_csv(path_csv, index=False)
         
 
     def get_nodes(self):
@@ -103,5 +120,4 @@ class Graph:
         '''
         Returns the coordinates of a node.
         '''
-        node = self._to_index(node)
         return self.coords[node]
