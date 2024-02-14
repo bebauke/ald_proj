@@ -1,13 +1,15 @@
 import numpy as np
 
 class Graph:
-    def __init__(self, node_list):
+    def __init__(self, node_list, coords=None):
+        ## TODO: Add coordinates to nodes
         self.nodes_dict = {}
         for node in node_list:
             self.nodes_dict[node] = node_list.index(node)
 
         # 2D array of distances between nodes
         self.adjacency_matrix = np.full((len(node_list), len(node_list)), np.inf)
+        self.coords = np.full((len(node_list), 2), np.inf)
 
         # self.adjacency_matrix = {}
         # for node in node_list:
@@ -96,3 +98,10 @@ class Graph:
         Returns a list of all nodes in the graph.
         '''
         return list(self.nodes_dict.keys())
+    
+    def get_coords(self, node):
+        '''
+        Returns the coordinates of a node.
+        '''
+        node = self._to_index(node)
+        return self.coords[node]

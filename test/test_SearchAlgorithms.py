@@ -26,17 +26,15 @@ def test_DijkstraAlgorithm():
 
     algo1 = DijkstraAlgorithm("Dijkstra")
 
-    path, graph = algo1.search(g, "A", "L")
+    path, visited = algo1.search(g, "A", "L")
 
     solution_path = ["A", "B", "D", "H", "L"]
 
     assert path == solution_path
 
     # test if graph is only inf, 1 and 0
-    for i in range(len(graph.adjacency_matrix)):
-        for j in range(len(graph.adjacency_matrix[i])):
-            if graph.adjacency_matrix[i][j] not in [0, 1, np.inf]:
-                assert False
+    if len(visited)== 0:
+        assert False
 
 def test_AStarAlgorithm():
     g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"])
@@ -59,14 +57,12 @@ def test_AStarAlgorithm():
 
     algo = AStarAlgorithm("A*")
 
-    path, graph = algo.search(g, "A", "L")
+    path, visited = algo.search(g, "A", "L")
 
     solution_path = ["A", "B", "D", "H", "L"]
 
     assert path == solution_path
     
     # test if graph is only inf, 1 and 0
-    for i in range(len(graph.adjacency_matrix)):
-        for j in range(len(graph.adjacency_matrix[i])):
-            if graph.adjacency_matrix[i][j] not in [0, 1, np.inf]:
-                assert False
+    if len(visited)== 0:
+        assert False
