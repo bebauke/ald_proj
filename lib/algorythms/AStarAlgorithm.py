@@ -1,5 +1,4 @@
-from lib.algorythms.ISearchAlgorithm import ISearchAlgorithm
-import numpy as np
+from lib.algorythms.ISearchAlgorithm import ISearchAlgorithm, numpy as np
 
 class AStarAlgorithm(ISearchAlgorithm):
     def __init__(self, name):
@@ -25,11 +24,11 @@ class AStarAlgorithm(ISearchAlgorithm):
         w=start
         R.append(start)
         while w != end: 
-            u=graph.get_neighbors(self,start)
+            u=graph.get_neighbors(start)
             helper={}
-            for node, gewicht in u:
+            for gewicht, node in u:
                 exist=False
-                for node_l,gewicht_l in l:
+                for gewicht_l,node_l in l:
                     if node==node_l:
                         exist=True
                 if exist:
@@ -41,16 +40,13 @@ class AStarAlgorithm(ISearchAlgorithm):
                     l[node] = l[w]+gewicht
                     helper[node] = l[w]+gewicht
                     p[node]=w
+
+                h[node]=self._heuristic(graph,node, end) 
+            
+            for value, key in helper:
+                value += h[key]
             w=min(helper, key=helper.get)
             R.append(w)
-        
-        value=end
-        while helper_v != start:
-            
-            helper_v=p[value]
-            v.append(helper_v)
-            value=helper_v
-        
                 
 
 

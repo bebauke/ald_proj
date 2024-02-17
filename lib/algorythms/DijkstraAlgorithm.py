@@ -1,4 +1,4 @@
-from lib.algorythms.ISearchAlgorithm import ISearchAlgorithm
+from lib.algorythms.ISearchAlgorithm import ISearchAlgorithm, numpy as np
 
 class DijkstraAlgorithm(ISearchAlgorithm):
     def __init__(self, name = "Dijkstra"):
@@ -17,11 +17,11 @@ class DijkstraAlgorithm(ISearchAlgorithm):
         w=start
         R.append(start)
         while w != end: 
-            u=graph.get_neighbors(self,start)
+            u=graph.get_neighbors(start)
             helper={}
-            for node, gewicht in u:
+            for gewicht ,node in u:
                 exist=False
-                for node_l,gewicht_l in l:
+                for gewicht_l,node_l in l:
                     if node==node_l:
                         exist=True
                 if exist:
