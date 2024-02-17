@@ -20,9 +20,9 @@ class DijkstraAlgorithm(ISearchAlgorithm):
         while w != end: 
             u=graph.get_neighbors(start)
             helper={}
-            for gewicht ,node in u:
+            for node, gewicht in u.items():
                 exist=False
-                for gewicht_l,node_l in l:
+                for node_l,gewicht_l in l.items():
                     if node==node_l:
                         exist=True
                 if exist:
