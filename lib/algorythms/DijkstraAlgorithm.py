@@ -1,4 +1,5 @@
-from lib.algorythms.ISearchAlgorithm import ISearchAlgorithm, numpy as np
+from lib.algorythms.ISearchAlgorithm import ISearchAlgorithm
+import numpy as np
 
 class DijkstraAlgorithm(ISearchAlgorithm):
     def __init__(self, name = "Dijkstra"):
