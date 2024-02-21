@@ -9,7 +9,8 @@ class AStarAlgorithm(ISearchAlgorithm):
     def _heuristic(self, graph, node1, node2):
         b = graph.get_coords(node1)
         c = graph.get_coords(node2)
-        return ((b[0] - c[0])**2 + (b[1] - c[1])**2)**0.5
+        if b != None and c != None:
+            return ((b[0] - c[0])**2 + (b[1] - c[1])**2)**0.5
 
     def search(self, graph, start, end):
         # A* initialisieren

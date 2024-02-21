@@ -34,7 +34,9 @@ class DijkstraAlgorithm(ISearchAlgorithm):
                     l[node] = l[w]+gewicht
                     helper[node] = l[w]+gewicht
                     p[node]=w
-            w=min(helper, key=helper.get)
+            if len(helper)!=0:
+                w=min(helper, key=helper.get)
+            
             R.append(w)
         
         value=end
