@@ -1,6 +1,14 @@
 import numpy as np
 
 class Graph:
+    '''
+    Class for creating and manipulating a graph.
+
+    Attributes:
+    - nodes_dict: dictionary of nodes and their indices
+    - adjacency_matrix: 2D array of distances between nodes
+    - coords: dictionary of nodes and their coordinates
+    '''
     def __init__(self, node_list, coords_list=None):
         ## TODO: Add coordinates to nodes
         self.nodes_dict = {}
@@ -153,6 +161,8 @@ class Graph:
         '''
         Returns the coordinates of a node.
         '''
+        if node is None:
+            return self.coords
         return self.coords[node]
 
     def get_cost(self, route):
