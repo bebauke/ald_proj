@@ -42,7 +42,18 @@ def test_DijkstraAlgorithm():
 
 @pytest.mark.timeout(5)
 def test_AStarAlgorithm():
-    g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"])
+
+    with pytest.raises(ValueError): 
+        g = Graph(["A", "B", "C"])
+        g.update_edge("A", "B", 1)
+        g.update_edge("A", "C", 2)
+        g.update_edge("B", "C", 1)
+
+        algo = AStarAlgorithm("A*")
+        
+
+    g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"], {"A": (1, 1), "B": (2, 2), "C": (3, 3), "D": (4, 4), "E": (5, 5), "F": (6, 6), "G": (7, 7), "H": (8, 8), "I": (9, 9), "J": (10, 10), "K": (11, 11), "L": (12, 12)})
+
     g.update_edge("A", "B", 1)
     g.update_edge("A", "C", 2)
     g.update_edge("B", "D", 3)
@@ -59,8 +70,6 @@ def test_AStarAlgorithm():
     g.update_edge("I", "L", 14)
     g.update_edge("J", "L", 15)
     g.update_edge("K", "L", 16)
-
-    algo = AStarAlgorithm("A*")
 
     path, visited = algo.search(g, "A", "L")
 
