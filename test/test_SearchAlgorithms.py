@@ -1,4 +1,6 @@
 import sys, os
+
+import pytest
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from lib.data.networks import Graph
 import numpy as np
@@ -6,6 +8,7 @@ from lib.algorythms.DijkstraAlgorithm import DijkstraAlgorithm
 from lib.algorythms.AStarAlgorithm import AStarAlgorithm
 from lib.algorythms.DummyAlgorithm import DummyAlgorithm
 
+@pytest.mark.timeout(5)
 def test_DijkstraAlgorithm():
     g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"])
     g.update_edge("A", "B", 1)
@@ -37,6 +40,7 @@ def test_DijkstraAlgorithm():
     if len(visited)== 0:
         assert False
 
+@pytest.mark.timeout(5)
 def test_AStarAlgorithm():
     g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"])
     g.update_edge("A", "B", 1)
