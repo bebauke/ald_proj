@@ -33,9 +33,11 @@ class DijkstraAlgorithm(ISearchAlgorithm):
                 else:
                     l[node] = l[w]+gewicht
                     helper[node] = l[w]+gewicht
-                    p[node]=w
+                    p[node] = w
             if len(helper)!=0:
                 w=min(helper, key=helper.get)
+            else :
+                raise NotImplementedError("Was isn hier")
             
             R.append(w)
         

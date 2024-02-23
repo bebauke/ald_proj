@@ -8,6 +8,7 @@ from lib.algorythms.DijkstraAlgorithm import DijkstraAlgorithm
 from lib.algorythms.AStarAlgorithm import AStarAlgorithm
 from lib.algorythms.DummyAlgorithm import DummyAlgorithm
 
+# needs conda install pytest-timeout
 @pytest.mark.timeout(5)
 def test_DijkstraAlgorithm():
     g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"])
@@ -50,7 +51,9 @@ def test_AStarAlgorithm():
         g.update_edge("B", "C", 1)
 
         algo = AStarAlgorithm("A*")
-        
+        algo.search(g,'A', 'C')
+
+
 
     g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"], {"A": (1, 1), "B": (2, 2), "C": (3, 3), "D": (4, 4), "E": (5, 5), "F": (6, 6), "G": (7, 7), "H": (8, 8), "I": (9, 9), "J": (10, 10), "K": (11, 11), "L": (12, 12)})
 
