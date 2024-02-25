@@ -24,46 +24,58 @@ class NewAStarAlgorithm(ISearchAlgorithm):
         return ((b[0] - c[0])**2 + (b[1] - c[1])**2)**0.5
 
     def search(self, graph, start, end):
+       # Überprüfe, ob Start- und Endknoten im Graphen vorhanden sind
         if start not in graph.get_nodes() or end not in graph.get_nodes():
             raise ValueError("Start oder Endknoten nicht im Graphen")
+        # Fall, wenn Startknoten gleich Endknoten ist: Rückgabe des Startknotens als Pfad
         if start == end:
             return [start], [start]
 
-        open_set = PriorityQueue()
-        open_set.put(start, 0)
-        
-        came_from = {}
-        
-        g_score = {node: float('inf') for node in graph.get_nodes()}
-        g_score[start] = 0
-        
-        f_score = {node: float('inf') for node in graph.get_nodes()}
-        f_score[start] = self._heuristic(graph, start, end)
+        # Initialisiere die Priority Queue für die offenen Knoten
+        queue = PriorityQueue()
+        queue.put(start, 0)  # Füge den Startknoten mit Priorität 0 hinzu
 
-        closed_set = set()
-        
-        while not open_set.is_empty():
-            current = open_set.get()
+        # Wörterbuch zum Speichern des Vorgängers eines jeden Knotens auf dem kürzesten Pfad
+        prev = {}
+
+        # Initialisiere die l-Werte aller Knoten als unendlich, außer für den Startknoten
+        l = {node: float('inf') for node in graph.get_nodes()}
+        l[start] = 0 
+
+        # Initialisiere die lh-Werte aller Knoten als unendlich, setze für den Startknoten den Heuristikwert
+        lh = {node: float('inf') for node in graph.get_nodes()}
+        lh[start] = self._heuristic(graph, start, end)
+
+        # Ein Set zum Speichern aller bereits besuchten Knoten
+        visited = set() # R
+
+        # Die Hauptschleife des Algorithmus läuft, bis die Priority Queue leer ist
+        while not queue.is_empty():
+            # Entferne den Knoten mit der niedrigsten lh aus der Priority Queue
+            cur = queue.get()
             
-            if current == end:
+            # Wenn der aktuelle Knoten das Ziel ist, rekonstruiere den Pfad und gib ihn zurück
+            if cur == end:
                 path = []
-                while current in came_from:
-                    path.append(current)
-                    current = came_from[current]
+                while cur in prev:
+                    path.append(cur)
+                    cur = prev[cur]
                 path.append(start)
-                path.reverse()
-                return path, list(closed_set)
+                path.reverse()  # Umkehrung des Pfades, da dieser rückwärts aufgebaut wurde
+                return path, list(visited)  # Rückgabe des Pfades und der besuchten Knoten
             
-            closed_set.add(current)
-        
-            for neighbor, weight in graph.get_neighbors(current).items():
-                tentative_g_score = g_score[current] + weight
-                if tentative_g_score < g_score[neighbor]:
-                    came_from[neighbor] = current
-                    g_score[neighbor] = tentative_g_score
-                    f_score[neighbor] = tentative_g_score + self._heuristic(graph, neighbor, end)
-                    if neighbor not in [item[1] for item in open_set.elements]:
-                        open_set.put(neighbor, f_score[neighbor])
-        
-        return [], []  # Kein Pfad gefunden
+            visited.add(cur)  # Markiere den aktuellen Knoten als besucht
+            
+            # Durchlaufe alle Nachbarn des aktuellen Knotens
+            for neighbor, weight in graph.get_neighbors(cur).items():
+                l_inter = l[cur] + weight  # Berechne den l-Score des Nachbarn
+                if l_inter < l[neighbor]:  # Prüfe, ob ein besserer Weg gefunden wurde
+                    # Aktualisiere den besten Weg zum Nachbarn
+                    prev[neighbor] = cur
+                    l[neighbor] = l_inter
+                    lh[neighbor] = l_inter + self._heuristic(graph, neighbor, end)  # Aktualisiere den f-Score des Nachbarn
+                    # Füge den Nachbarn zur Priority Queue hinzu, falls er nicht schon enthalten ist
+                    if neighbor not in [item[1] for item in queue.elements]:
+                        queue.put(neighbor, lh[neighbor])
 
+        return [], []  # Kein Pfad gefunden

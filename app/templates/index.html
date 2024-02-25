@@ -55,10 +55,10 @@
 
                     var renderResults = '';
 
-                    renderResults = '<span>' + stats.distance + ' km</span>';
-                    renderResults += '<span>' + stats.duration + ' min</span>';
-                    renderResults += '<span>' + stats.visited_nodes_count + '</span>';
-                    renderResults += '<span>' + stats.execution_time + ' ms</span>';
+                    renderResults = '<span title="Entfernung">' + stats.distance + ' km</span>';
+                    renderResults += '<span title="Dauer">' + stats.duration + ' min</span>';
+                    renderResults += '<span title="Anzahl besuchter Punkte">' + stats.visited_nodes_count + '</span>';
+                    renderResults += '<span title="Ausführungsdauer">' + stats.execution_time + ' ms</span>';
                     renderResults += '<br/><b>Kürzester Weg:</b><ul id="result-list">';
                     for (var i = 0; i < shortest.length; i++) {
                         renderResults += '<li>' + shortest[i] + '</li>';

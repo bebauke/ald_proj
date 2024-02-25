@@ -10,7 +10,6 @@ class Graph:
     - coords: dictionary of nodes and their coordinates
     '''
     def __init__(self, node_list, coords_list=None):
-        ## TODO: Add coordinates to nodes
         self.nodes_dict = {}
         if coords_list is not None:
             if isinstance(coords_list, dict):

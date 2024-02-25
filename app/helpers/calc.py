@@ -3,7 +3,7 @@ from lib.algorythms.DijkstraAlgorithm import DijkstraAlgorithm
 from lib.algorythms.AStarAlgorithm import AStarAlgorithm
 from lib.algorythms.NewAStarAlgorithm import NewAStarAlgorithm
 from lib.algorythms.NewAStarAlgorithm_heap import NewAStarAlgorithmHeap
-from lib.helpers.map_helper import MapHelper
+from lib.data.map_helper import MapHelper
 from timeit import default_timer as timer
 
 

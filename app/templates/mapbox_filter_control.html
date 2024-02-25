@@ -6,8 +6,8 @@
         <p><select id="algorithm">
             <option value="dijkstra">Dijkstra</option>
             <option value="astar">A*</option>
-            <option value="nastar">ChatGPT A*</option>
-            <option value="nastar_heap">ChatGPT A* (heap)</option>
+            <option value="nastar">A* (optimiert)</option>
+            <option value="nastar_heap">A* (optimiert, heap)</option>
         </select></p>
         {% for entry in entries %}
             <label for="{{ entry['title']|replace('[^a-z0-9-]','_') }}">{{ entry['title'] }}</label>
