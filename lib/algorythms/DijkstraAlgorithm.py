@@ -2,49 +2,36 @@ from lib.algorythms.ISearchAlgorithm import ISearchAlgorithm
 import numpy as np
 
 class DijkstraAlgorithm(ISearchAlgorithm):
-    def __init__(self, name = "Dijkstra"):
+    def __init__(self, name="Dijkstra"):
         super().__init__(name)
 
     def search(self, graph, start, end):
-         # Anzahl der Elemente berechnen
-        l = {}   # Pfadlängen
-        v = []   # Besuchte Punkte
-        p = {}   # Vorgänger
-        R = []   # kuerzester Pfad gefunden
-        h = {}   # Heuristik
-    
-
-        l[start]=0
-        w=start
-        R.append(start)
-        while w != end: 
-            u=graph.get_neighbors(start)
-            helper={}
-            for node, gewicht in u.items():
-                exist=False
-                for node_l,gewicht_l in l.items():
-                    if node==node_l:
-                        exist=True
-                if exist:
-                    if l[node] > l[w]+gewicht:
-                        l[node] = l[w]+gewicht
-                        helper[node] = l[w]+gewicht
-                        p[node]=w
-                else:
-                    l[node] = l[w]+gewicht
-                    helper[node] = l[w]+gewicht
-                    p[node] = w
-            if len(helper)!=0:
-                w=min(helper, key=helper.get)
-            else :
-                raise NotImplementedError("Was isn hier")
-            
+        # Pfadlängen
+        l = {node: float('inf') for node in graph.get_nodes()}
+        l[start] = 0
+        
+        # Vorgänger
+        p = {}
+        
+        # Kürzester Pfad
+        R = [start]  # Startknoten hinzufügen
+        
+        while R and R[-1] != end:
+            w = min((node for node in graph.get_nodes() if node not in R), key=lambda x: l[x])
             R.append(w)
-        
-        value=end
-        while helper_v != start:
             
-            helper_v=p[value]
-            v.append(helper_v)
-            value=helper_v
+            for node, weight in graph.get_neighbors(w).items():
+                if l[w] + weight < l[node]:
+                    l[node] = l[w] + weight
+                    p[node] = w
+
+        # Pfad von start bis end rekonstruieren
+        if end in p:
+            path = [end]
+            while path[-1] != start:
+                path.append(p[path[-1]])
+            path.reverse()
+        else:
+            path = []
         
+        return path, list(l.keys())
