@@ -173,8 +173,8 @@ class Graph:
         for i in range(len(route)-1):
             _cost = self.adjacency_matrix[self.nodes_dict[route[i]]][self.nodes_dict[route[i+1]]]
             if _cost == np.inf:
-                continue
                 raise Exception("Route not possible.")
+                # continue
             cost += _cost
         return cost
     

@@ -6,15 +6,21 @@ class DijkstraAlgorithm(ISearchAlgorithm):
         super().__init__(name)
 
     def search(self, graph, start, end):
+        nodes = graph.get_nodes()
+        if start not in nodes or end not in nodes:
+            raise ValueError("Start oder Endknoten nicht im Graphen")
+        if start == end:
+            return [start], [start]
+
         # Pfadlängen
-        l = {node: float('inf') for node in graph.get_nodes()}  # Initialisiere alle Pfadlängen als unendlich
+        l = {node: float('inf') for node in nodes}  # Initialisiere alle Pfadlängen als unendlich
         l[start] = 0  # Die Länge des Startknotens zum Startknoten ist 0, da es sich um den Startknoten handelt
         
         # Vorgänger
         p = {}  # Hier werden die Vorgänger der Knoten auf dem kürzesten Pfad gespeichert
         
         # Kürzester Pfad
-        R = [start]  # Startknoten hinzufügen
+        R = [start]  # Startknoten hinzufügen zu R (besuchte Knoten)
         w= start
         
         # Der Algorithmus läuft, solange es noch Knoten zu durchsuchen gibt und das Ziel noch nicht erreicht ist
@@ -27,7 +33,7 @@ class DijkstraAlgorithm(ISearchAlgorithm):
                     p[node] = w  # Setze w als Vorgänger von node
             
             # Wähle den Knoten mit der minimalen Pfadlänge, der noch nicht in R enthalten ist
-            w = min((node for node in graph.get_nodes() if node not in R), key=lambda x: l[x])
+            w = min((node for node in nodes if node not in R), key=lambda x: l[x])
             R.append(w)  # Füge den ausgewählten Knoten zu R hinzu
             
                     
@@ -41,4 +47,4 @@ class DijkstraAlgorithm(ISearchAlgorithm):
             path = []  # Wenn kein Pfad gefunden wurde, ist der Pfad leer
             raise Exception("kein end")
         
-        return path, list(l.keys())  # Gebe den gefundenen Pfad und eine Liste aller Knoten im Graphen zurück
+        return path, R

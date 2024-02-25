@@ -40,7 +40,10 @@ class MapHelper():
             for n in neighbours:
                 if n not in lines_drawn:
                     popup = str(self.graph.get_cost([node, n])) + " min, " + str(round(self.graph.get_distance([node, n]), 2)) + " km"
-                    self._add_line(self.graph.get_coords(node), self.graph.get_coords(n), "gray", 4, popup)
+                    if node in shortest_route and n in shortest_route:
+                        self._add_line(self.graph.get_coords(node), self.graph.get_coords(n), "blue", 4, popup)
+                    else:
+                        self._add_line(self.graph.get_coords(node), self.graph.get_coords(n), "gray", 2, popup)
             lines_drawn.append(node)
             
 
@@ -50,9 +53,9 @@ class MapHelper():
                     tag = "Start: "+ node
                 else:
                     tag = "End: "+ node
-                self._add_marker(self.graph.get_coords(node), "red", 5, node)
+                self._add_marker(self.graph.get_coords(node), "red", 10, tag)
             elif node in shortest_route:
-                self._add_marker(self.graph.get_coords(node), "green", 5, node)
+                self._add_marker(self.graph.get_coords(node), "green", 6, node)
             elif node in visited:
                 self._add_marker(self.graph.get_coords(node), "blue", 3, node)
             else:

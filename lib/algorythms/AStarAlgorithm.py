@@ -16,6 +16,11 @@ class AStarAlgorithm(ISearchAlgorithm):
         return ((b[0] - c[0])**2 + (b[1] - c[1])**2)**0.5
 
     def search(self, graph, start, end):
+        if start not in graph.get_nodes() or end not in graph.get_nodes():
+            raise ValueError("Start oder Endknoten nicht im Graphen")
+        if start == end:
+            return [start], [start]
+
         # Pfadlängen
         l = {node: float('inf') for node in graph.get_nodes()}  # Initialisiere alle Pfadlängen als unendlich
         l[start] = 0  # Die Länge des Startknotens zum Startknoten ist 0, da es sich um den Startknoten handelt
@@ -48,7 +53,6 @@ class AStarAlgorithm(ISearchAlgorithm):
                 path.append(p[path[-1]])  # Füge den Vorgänger des aktuellen Knotens zum Pfad hinzu
             path.reverse()  # Da der Pfad rückwärts aufgebaut wurde, kehre ihn um, um den korrekten Pfad zu erhalten
         else:
-            path = []  # Wenn kein Pfad gefunden wurde, ist der Pfad leer
-            raise Exception("kein end")
+            path = []  # Wenn kein Pfad gefunden wurde, ist der Pfad leers
         
-        return path, list(l.keys())  # Gebe den gefundenen Pfad und eine Liste aller Knoten im Graphen zurück
+        return path, R
