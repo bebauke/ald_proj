@@ -7,8 +7,7 @@ Dieses Projekt ist im Rahmen der Lehrveranstalltung ALD (WS24) an der FHOÖ in W
 
 Die Anwendung ermöglicht einen einfachen Vergleich unterschiedlicher Suchalgorithmen, die dazu das `ISearchAlgorithm`-Interface erfüllen müssen. Bereits implementiert sind der Dijkstra- sowie der A*-Algorithmus. 
 
-## 0. Installation
-### 0.1 Voraussetzungen
+## Installation
 Das Projekt wurde in Python 3.11 entwickelt. Dazu wurden die Bibliotheken `flask` und `folium` verwendet. Die Installation kann über pip in ein `.venv` erfolgen.
 ```shell
 python -m venv .venv
