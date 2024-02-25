@@ -9,12 +9,14 @@ Die Anwendung ermöglicht einen einfachen Vergleich unterschiedlicher Suchalgori
 
 ## 0. Installation
 ### 0.1 Voraussetzungen
-Das Projekt wurde in Python 3.11 entwickelt. Dazu wurden die Bibliotheken `flask` und `folium` verwendet. Die Installation kann über pip erfolgen.
-```bash
-pip install flask folium
+Das Projekt wurde in Python 3.11 entwickelt. Dazu wurden die Bibliotheken `flask` und `folium` verwendet. Die Installation kann über pip in ein `.venv` erfolgen.
+```shell
+python -m venv .venv
+.venv/bin/activate
+pip install Flask folium
 ``` 
 `geopy` wurde für die Adressenauflösung verwendet und wird nicht zwingend benötigt.
-```bash
+```shell
 pip install geopy
 ```
 

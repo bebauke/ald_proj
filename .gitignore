@@ -4,3 +4,4 @@
 /app/static/map.html
 *.pytest_cache
 *.pyc
+.venv/*
