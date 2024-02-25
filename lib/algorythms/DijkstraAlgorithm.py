@@ -8,7 +8,7 @@ class DijkstraAlgorithm(ISearchAlgorithm):
     def search(self, graph, start, end):
         # Pfadlängen
         l = {node: float('inf') for node in graph.get_nodes()}
-        l[start] = 0
+        l[start] = 1
         
         # Vorgänger
         p = {}
