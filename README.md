@@ -7,6 +7,17 @@ Dieses Projekt ist im Rahmen der Lehrveranstalltung ALD (WS24) an der FHOÖ in W
 
 Die Anwendung ermöglicht einen einfachen Vergleich unterschiedlicher Suchalgorithmen, die dazu das `ISearchAlgorithm`-Interface erfüllen müssen. Bereits implementiert sind der Dijkstra- sowie der A*-Algorithmus. 
 
+## 0. Installation
+### 0.1 Voraussetzungen
+Das Projekt wurde in Python 3.11 entwickelt. Dazu wurden die Bibliotheken `flask` und `folium` verwendet. Die Installation kann über pip erfolgen.
+```bash
+pip install flask folium
+``` 
+`geopy` wurde für die Adressenauflösung verwendet und wird nicht zwingend benötigt.
+```bash
+pip install geopy
+```
+
 ## 1. Bedienung
 Nach dem Starten der run.py wird im Browser die Adresse [localhost:5000](http://localhost:5000/) ausgeführt Die Bedienung erfolgt über ein Webinterface, dass auf dem Flask-Framework aufgesetzt ist.
 Über ein Drop-Down-Menü wird der zu verwendendende Suchalgorithmus ausgewählt. Zwei Textfelder dienen der Eingabe von Start und Endpunkt. Mögliche Optionen werden vorgeschlagen. 
