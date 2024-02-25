@@ -1,5 +1,5 @@
 # ALD - Das ist der Weg 
-![Mando](app/static/images/favicon.png?raw=true)
+<p align="center">![Mando](app/static/images/favicon.png?raw=true)</p>
 
 Dieses Projekt ist im Rahmen der Lehrveranstalltung ALD (WS24) an der FHOÖ in Wels entstanden. Das Projekt dient der Leistungserhebung für die Studenten Bauke und Malzer.
 
