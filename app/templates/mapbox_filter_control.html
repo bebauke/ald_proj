@@ -1,6 +1,12 @@
 <!-- templates/mapbox_filter_control.html -->
 <div class="mapboxgl-ctrl mapboxgl-ctrl-group">
     <div class="mapboxgl-filter-list">
+        <!-- Dropdown for 'dijkstra' or 'astar' -->
+        <label for="algorithm">Algorithmus</label>
+        <p><select id="algorithm">
+            <option value="dijkstra">Dijkstra</option>
+            <option value="astar">A*</option>
+        </select></p>
         {% for entry in entries %}
             <label for="{{ entry['title']|replace('[^a-z0-9-]','_') }}">{{ entry['title'] }}</label>
             <input type="text" list="nodes" id="{{ entry['id'] }}" placeholder="{{ entry['title'] }}" {% if entry['active'] == false %}disabled{% endif %}> 

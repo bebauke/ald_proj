@@ -1,6 +1,6 @@
 # ALD - Das ist der Weg 
 <p align="center">
- <img width="30" height="30" src="app/static/images/favicon.png">
+ <img width="50" height="50" src="app/static/images/favicon.png">
 </p>
 
 Dieses Projekt ist im Rahmen der Lehrveranstalltung ALD (WS24) an der FHOÖ in Wels entstanden. Das Projekt dient der Leistungserhebung für die Studenten Bauke und Malzer.
@@ -15,7 +15,12 @@ Wenn die über den Button "Suche starten" gestartete Suche abgeschlossen ist, wi
 Die Karte visualisiert dabei, welche Knoten bei der Suche besucht wurden und welche den kürzesten Pfad bilden. 
 
 ## 2. Aufbau (Datenstuktur, Klassen)
-### 2.1 Klassen
+### 2.1 User-Interface
+Um den Pythoncode 
+
+### 2.2 lib: Algorithmen und Datenstrukturen
+
+
 
 
 ## 3. Logik (Algorithmus, Datenfluss, ...)

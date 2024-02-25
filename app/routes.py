@@ -14,15 +14,18 @@ def mapbox():
 from flask import Flask, request, jsonify
 from app.helpers.calc import calculate_shortest_route_and_stats
 
-
 @app.route('/search', methods=['POST'])
 def search():
     data = request.get_json()
     start = data['start']
     end = data['end']
+    algorithm = data['algorithm']
 
     # Rufen Sie die Funktion auf, die die kürzeste Route und die Suchstatistiken berechnet
-    shortest_route, search_stats = calculate_shortest_route_and_stats(start, end)
+    shortest_route, search_stats = calculate_shortest_route_and_stats(start, end, algorithm)
+
+    # TODO: Create the map : is done in calculte_shortest_route_and_stats
+
 
     # Senden Sie die Ergebnisse zurück an den Client
     return jsonify({

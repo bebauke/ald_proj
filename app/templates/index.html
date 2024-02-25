@@ -25,6 +25,7 @@
                 // Werte aus den Eingabefeldern abrufen
                 var start = document.getElementById('start').value;
                 var end = document.getElementById('end').value;
+                var algorithm = document.getElementById('algorithm').value;
 
                 // AJAX-Aufruf an den Flask-Server machen
                 // AJAX-Aufruf an den Flask-Server machen
@@ -35,7 +36,8 @@
                     },
                     body: JSON.stringify({
                         start: start,
-                        end: end
+                        end: end,
+                        algorithm: algorithm
                     })
                 })
                 .then(response => {
@@ -47,6 +49,7 @@
                 .then(data => {
                     // Ergebnisse im 'results'-Div anzeigen
                     var resultsDiv = document.getElementById('results');
+                    var map_frame = document.getElementById('map_frame');
                     console.log(data);
                     var shortest = data.shortest_route;
                     var stats = data.search_stats;
@@ -56,7 +59,7 @@
                     renderResults = '<span>' + stats.distance + ' km</span>';
                     renderResults += '<span>' + stats.duration + ' min</span>';
                     renderResults += '<span>' + stats.visited_nodes_count + '</span>';
-                    renderResults += '<span>' + stats.execution_time + ' µs</span>';
+                    renderResults += '<span>' + stats.execution_time + ' ms</span>';
                     renderResults += '<br/><b>Kürzester Weg:</b><ul id="result-list">';
                     for (var i = 0; i < shortest.length; i++) {
                         renderResults += '<li>' + shortest[i] + '</li>';
@@ -64,8 +67,8 @@
                     renderResults += '</ul>';
 
                     resultsDiv.innerHTML = renderResults;
+                    map_frame.src = map_frame.src;
 
-                    
                 })
                 .catch(error => {
                     console.error('Es gab ein Problem mit dem Fetch-Aufruf:', error);

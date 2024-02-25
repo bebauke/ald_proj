@@ -41,6 +41,15 @@ def test_DijkstraAlgorithm():
     if len(visited)== 0:
         assert False
 
+    path, visited = algo1.search(g, "A", "A")
+
+    solution_path = ['A']
+    assert path == solution_path
+    solution_visited = ['A']
+    assert visited == solution_visited
+
+
+
 @pytest.mark.timeout(5)
 def test_AStarAlgorithm():
 
@@ -52,8 +61,6 @@ def test_AStarAlgorithm():
 
         algo = AStarAlgorithm("A*")
         algo.search(g,'A', 'C')
-
-
 
     g = Graph(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"], {"A": (1, 1), "B": (2, 2), "C": (3, 3), "D": (4, 4), "E": (5, 5), "F": (6, 6), "G": (7, 7), "H": (8, 8), "I": (9, 9), "J": (10, 10), "K": (11, 11), "L": (12, 12)})
 
@@ -83,6 +90,13 @@ def test_AStarAlgorithm():
     # test if graph is only inf, 1 and 0
     if len(visited)== 0:
         assert False
+
+    path, visited = algo.search(g, "A", "A")
+
+    solution_path = ['A']
+    assert path == solution_path
+    solution_visited = ['A']
+    assert visited == solution_visited
 
 
 def test_DummyAlgorithm():
