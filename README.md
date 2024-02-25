@@ -1,5 +1,5 @@
 # ALD - Das ist der Weg 
-![Mando](static/images/favicon.png)
+![Mando](arr/static/images/favicon.png)
 Dieses Projekt ist im Rahmen der Lehrveranstalltung ALD (WS24) an der FHOÖ in Wels entstanden. Das Projekt dient der Leistungserhebung für die Studenten Bauke und Malzer.
 
 Die Anwendung ermöglicht einen einfachen Vergleich unterschiedlicher Suchalgorithmen, die dazu das `ISearchAlgorithm`-Interface erfüllen müssen. Bereits implementiert sind der Dijkstra- sowie der A*-Algorithmus. 
