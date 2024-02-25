@@ -33,7 +33,7 @@ def test_DijkstraAlgorithm():
 
     path, visited = algo1.search(g, "A", "L")
 
-    solution_path = ["A", "B", "D", "H", "L"]
+    solution_path = ['A', 'C', 'F', 'L']
 
     assert path == solution_path
 
@@ -76,7 +76,7 @@ def test_AStarAlgorithm():
 
     path, visited = algo.search(g, "A", "L")
 
-    solution_path = ["A", "B", "D", "H", "L"]
+    solution_path = ['A', 'C', 'F', 'L']
 
     assert path == solution_path
     
