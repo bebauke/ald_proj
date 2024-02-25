@@ -10,5 +10,5 @@ class Map_Template:
 
     def render(self):
         return render_template(
-            'map.html'
+            'map.html' # iframe wrapper (template) for the static map.html
         )

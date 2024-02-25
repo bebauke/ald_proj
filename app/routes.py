@@ -5,14 +5,13 @@ import folium
 from app.helpers.mapbox_filter_controles import MapboxFilterControl
 from app.helpers.map import Map_Template
 
-from flask import send_from_directory
+from flask import send_from_directory, request, jsonify
+from app.helpers.calc import calculate_shortest_route_and_stats
 
 @app.route('/mapbox')
 def mapbox():
     return send_from_directory('static', 'map.html')
 
-from flask import Flask, request, jsonify
-from app.helpers.calc import calculate_shortest_route_and_stats
 
 @app.route('/search', methods=['POST'])
 def search():
@@ -21,13 +20,10 @@ def search():
     end = data['end']
     algorithm = data['algorithm']
 
-    # Rufen Sie die Funktion auf, die die kürzeste Route und die Suchstatistiken berechnet
+    # kürzeste Route und die Suchstatistiken berechnen und die Karten erstellen
     shortest_route, search_stats = calculate_shortest_route_and_stats(start, end, algorithm)
 
-    # TODO: Create the map : is done in calculte_shortest_route_and_stats
-
-
-    # Senden Sie die Ergebnisse zurück an den Client
+    # Ergebnisse als JSON zurückgeben
     return jsonify({
         'shortest_route': shortest_route,
         'search_stats': search_stats

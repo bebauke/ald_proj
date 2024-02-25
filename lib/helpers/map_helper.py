@@ -57,7 +57,7 @@ class MapHelper():
             elif node in shortest_route:
                 self._add_marker(self.graph.get_coords(node), "green", 6, node)
             elif node in visited:
-                self._add_marker(self.graph.get_coords(node), "blue", 3, node)
+                self._add_marker(self.graph.get_coords(node), "black", 3, node)
             else:
                 self._add_marker(self.graph.get_coords(node), "gray", 3, node)
         self._create_map()

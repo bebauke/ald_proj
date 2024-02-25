@@ -6,6 +6,8 @@
         <p><select id="algorithm">
             <option value="dijkstra">Dijkstra</option>
             <option value="astar">A*</option>
+            <option value="nastar">ChatGPT A*</option>
+            <option value="nastar_heap">ChatGPT A* (heap)</option>
         </select></p>
         {% for entry in entries %}
             <label for="{{ entry['title']|replace('[^a-z0-9-]','_') }}">{{ entry['title'] }}</label>
@@ -21,5 +23,5 @@
             onclick="search()">
         Suche starten
     </button>
-    <div id="results"></div>
+    <div id="results">Keine Anfrage gestartet.</div>
 </div>

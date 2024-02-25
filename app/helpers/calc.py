@@ -1,7 +1,8 @@
 from lib.data.networks import Graph
 from lib.algorythms.DijkstraAlgorithm import DijkstraAlgorithm
 from lib.algorythms.AStarAlgorithm import AStarAlgorithm
-from lib.algorythms.DummyAlgorithm import DummyAlgorithm
+from lib.algorythms.NewAStarAlgorithm import NewAStarAlgorithm
+from lib.algorythms.NewAStarAlgorithm_heap import NewAStarAlgorithmHeap
 from lib.helpers.map_helper import MapHelper
 from timeit import default_timer as timer
 
@@ -19,6 +20,10 @@ def calculate_shortest_route_and_stats(start, end, algorithm="dijkstra"):
         shortest_route, visited = DijkstraAlgorithm("Dijkstra").search(graph, start, end)
     elif algorithm == "astar":
         shortest_route, visited = AStarAlgorithm("A*").search(graph, start, end)
+    elif algorithm == "nastar":
+        shortest_route, visited = NewAStarAlgorithm("A*").search(graph, start, end)
+    elif algorithm == "nastar_heap":
+        shortest_route, visited = NewAStarAlgorithmHeap("A*").search(graph, start, end)
     timer_end = timer()
 
     search_stats = {

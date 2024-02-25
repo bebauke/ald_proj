@@ -2,3 +2,5 @@
 *__pycache__
 /data/di-Dateien
 /app/static/map.html
+*.pytest_cache
+*.pyc
