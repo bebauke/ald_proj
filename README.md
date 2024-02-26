@@ -55,7 +55,7 @@ Zu guter Letzt gibt es noch weitere Funktioinen, die für die Datenallokation, d
 In folgendem Diagramm sind die wichtigsten Klassen und deren Beziehungen dargestellt.
 Dabei ist der `<<global scope>>` die Flask-App, die die Webanwendung steuert und in der Grafik rein informativ dargestellt ist.
 
-![Klassendiagramm](<doc/img/img_class_diagram.jpg> "Klassendiagramm")
+![Klassendiagramm](<doc/img/img_class_diagram.png> "Klassendiagramm")
 
 
 ## 3. Logik (Algorithmus, Datenfluss, ...)
