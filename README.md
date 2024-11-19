@@ -3,7 +3,7 @@
  <img width="50" height="50" src="app/static/images/favicon.png">
 </p>
 
-Dieses Projekt ist im Rahmen der Lehrveranstalltung ALD (WS24) an der FHOÖ in Wels entstanden. Das Projekt dient der Leistungserhebung für die Studenten Bauke und Malzer.
+Dieses Projekt ist im Rahmen der Lehrveranstalltung ALD (WS24) an der FHOÖ in Wels entstanden. Das Projekt dient der Leistungserhebung.
 
 Die Anwendung ermöglicht einen einfachen Vergleich unterschiedlicher Suchalgorithmen, die dazu das `ISearchAlgorithm`-Interface erfüllen müssen. Bereits implementiert sind der Dijkstra- sowie der A*-Algorithmus. 
 
